@@ -33,7 +33,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
+                       @auth
+                       <li class="nav-item dropdown">
 
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              Categories
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li><a class="dropdown-item" href=" {{ route('category.create') }} ">Add Category</a></li>
+                              <li><a class="dropdown-item" href="#">list Category</a></li>
+
+                            </ul>
+                          </li>
+                          @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

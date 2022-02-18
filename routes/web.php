@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +15,17 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('home', function () {
-    return "home";
-});
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+// auth route start here
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+// auth route end here
+
+Route::get('home', [HomeController::class, 'index'])->name('home');
+
+Route::resource('category', CategoryController::class);
