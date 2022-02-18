@@ -41,7 +41,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                               <li><a class="dropdown-item" href=" {{ route('category.create') }} ">Add Category</a></li>
-                              <li><a class="dropdown-item" href="#">list Category</a></li>
+                              <li><a class="dropdown-item" href="{{ route('category.index') }} ">list Category</a></li>
 
                             </ul>
                           </li>

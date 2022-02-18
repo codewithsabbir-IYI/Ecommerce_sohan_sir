@@ -15,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return "index";
+
+        return view('category.index',[
+            'categories' =>Category::all()
+        ]);
     }
 
     /**
@@ -51,7 +54,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
+        return view('category.show', compact('category'));
     }
 
     /**
