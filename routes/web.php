@@ -28,4 +28,5 @@ Auth::routes();
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
+Route::delete('category/hard/delete/{id}', [CategoryController::class, 'harddelete'])->name('category.harddelete');
 Route::resource('category', CategoryController::class);

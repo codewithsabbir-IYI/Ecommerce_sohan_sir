@@ -19,6 +19,11 @@
                             {{ session('category_updated') }}
                         </div>
                     @endif
+                    @if (session('harddelete'))
+                        <div class="alert alert-success">
+                            {{ session('harddelete') }}
+                        </div>
+                    @endif
                     <table class="table table-striped table-inverse table-responsive">
                         <thead class="thead-inverse|thead-default">
                             <tr>
@@ -38,7 +43,12 @@
                                         <form action="{{ route('category.destroy',$category->id) }} " method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm mt-2"     >delete</button>
+                                            <button type="submit" class="btn btn-secondary btn-sm mt-2">Soft Delete</button>
+                                        </form>
+                                        <form action="{{ route('category.harddelete',$category->id) }} " method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm mt-2">Permamently Delete</button>
                                         </form>
                                     </td>
 

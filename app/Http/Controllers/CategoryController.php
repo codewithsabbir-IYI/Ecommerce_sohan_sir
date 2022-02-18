@@ -39,11 +39,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'category_name' => 'required'
+        ]);
        Category::insert([
            'category_name' => $request->category_name,
            'created_at' => Carbon::now()
        ]);
-       return back()->with('category_added','Category Added Succeccfully');
+       return redirect('category')->with('category_added','Category Added Succeccfully');
     }
 
     /**
@@ -96,5 +99,14 @@ class CategoryController extends Controller
     {
         $category->delete();
         return back();
+    }
+
+    // thats for harddelete
+
+    public function harddelete($id)
+    {
+
+        Category::find($id)->forceDelete();
+        return back()->with('harddelete', 'Category Deleted Forever');
     }
 }
