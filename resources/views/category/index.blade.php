@@ -14,6 +14,11 @@
                             {{ session('category_added') }}
                         </div>
                     @endif
+                    @if (session('category_updated'))
+                        <div class="alert alert-success">
+                            {{ session('category_updated') }}
+                        </div>
+                    @endif
                     <table class="table table-striped table-inverse table-responsive">
                         <thead class="thead-inverse|thead-default">
                             <tr>
@@ -29,7 +34,12 @@
                                     <td scope="row">{{$category->category_name}} </td>
                                     <td>
                                         <a href="{{route('category.show',$category->id)}} " class="btn btn-info btn-sm">See Details</a>
-                                        <a href="" class="btn btn-danger btn-sm">delete</a>
+                                        <a href="{{route('category.edit',$category->id)}} " class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('category.destroy',$category->id) }} " method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm mt-2"     >delete</button>
+                                        </form>
                                     </td>
 
                                 </tr>

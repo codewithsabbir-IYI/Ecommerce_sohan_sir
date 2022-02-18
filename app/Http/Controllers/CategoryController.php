@@ -66,7 +66,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit',compact('category'));
     }
 
     /**
@@ -78,7 +78,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+       $old_name = $category->category_name;
+       $category->update([
+            'category_name' => $request->category_name,
+        ]);
+        return redirect('category')->with('category_updated',$old_name.'Category Updated Successfully To'.$request->category_name);
+
     }
 
     /**
@@ -89,6 +94,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return back();
     }
 }
