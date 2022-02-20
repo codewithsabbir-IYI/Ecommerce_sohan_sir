@@ -1,5 +1,7 @@
 @extends('dashboard.dashboard_master');
-
+@section('page_title')
+Add Category
+@endsection
 @section('dashboard_content')
 
 <div class="row">

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Gymove - Fitness Bootstrap Admin Dashboard</title>
+    <title>Gymove - @yield('page_title')</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dashboard') }}/images/favicon.png">
 	<link rel="stylesheet" href="{{ asset('dashboard') }}/vendor/chartist/css/chartist.min.css">
@@ -566,7 +566,7 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="dashboard_bar">
-								Dashboard
+								@yield('page_title')
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
@@ -783,6 +783,14 @@
                     <ul aria-expanded="false">
                         <li><a href="{{route('category.create')}} ">Add Categories</a></li>
                         <li><a href="{{route('category.index')}} ">All Categories</a></li>
+                    </ul>
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                        <i class="fa fa-list"></i>
+                        <span class="nav-text">Sub Categories</span>
+                    </a>
+                    <ul aria-expanded="false">
+                        <li><a href="{{route('subcategory.create')}} ">Add Sub Categories</a></li>
+                        <li><a href="{{route('subcategory.index')}} ">All Sub Categories</a></li>
                     </ul>
                 </li>
                 </ul>

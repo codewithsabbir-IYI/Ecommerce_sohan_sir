@@ -1,10 +1,13 @@
 @extends('dashboard.dashboard_master');
+@section('page_title')
+All Category
+@endsection
 @section('dashboard_content')
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                Add Category
+                All Category
             </div>
             <div class="card-body">
                 @if (session('category_added'))
