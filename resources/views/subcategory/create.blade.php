@@ -43,6 +43,7 @@ Add Sub Category
                               <span class="text-danger">{{$message}}</span>
                           @enderror
                       </div>
+
                     <button class="btn btn-info btn-sm" type="submit">Add Category</button>
                 </form>
             </div>

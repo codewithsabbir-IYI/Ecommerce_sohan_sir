@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class CategoryController extends Controller
 {
@@ -19,7 +20,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-
         return view('category.index',[
             'categories' =>Category::all()
         ]);
@@ -46,10 +46,20 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required|unique:categories,category_name'
         ]);
-       Category::insert([
+        $category_id = Category::insertGetId([
            'category_name' => $request->category_name,
            'created_at' => Carbon::now()
        ]);
+       if ($request->hasFile('category_photo')) {
+
+        $new_name = $category_id.".".$request->file('category_photo')->getClientOriginalExtension();
+        Image::make($request->file('category_photo'))->resize(300,150)->save(base_path('public/dashboard/uploads/category_photos/'.$new_name));
+            Category::find($category_id)->update([
+                'category_photo' => $new_name
+            ]);
+
+       }
+
        return redirect('category')->with('category_added','Category Added Succeccfully');
     }
 

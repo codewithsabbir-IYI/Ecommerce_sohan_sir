@@ -30,14 +30,20 @@ All Category
                         <tr>
                             <th>ID</th>
                             <th>Category Name</th>
+                            <th>Category Photo</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                             @forelse ($categories as $category)
+
                             <tr>
                                 <td scope="row">{{$category->id}} </td>
                                 <td scope="row">{{$category->category_name}} </td>
+                                <td scope="row">
+
+                                    <img src=" {{ asset('dashboard/uploads/category_photos') }}/{{$category->category_photo}} " alt="not found">
+                                </td>
                                 <td>
                                     <a href="{{route('category.show',$category->id)}} " class="btn btn-info btn-sm">See Details</a>
                                     <a href="{{route('category.edit',$category->id)}} " class="btn btn-warning btn-sm">Edit</a>
