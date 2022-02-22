@@ -44,7 +44,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:categories,category_name'
+            'category_name' => 'required|unique:categories,category_name',
+            'category_photo' => 'image'
         ]);
         $category_id = Category::insertGetId([
            'category_name' => $request->category_name,
@@ -83,6 +84,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+
         return view('category.edit',compact('category'));
     }
 
@@ -99,6 +101,20 @@ class CategoryController extends Controller
        $category->update([
             'category_name' => $request->category_name,
         ]);
+
+        if ($request->hasFile('category_photo')) {
+
+            if ($category->category_photo !== 'default_category_photo.jpg') {
+                unlink(public_path()."/dashboard/uploads/category_photos/".$category->category_photo);
+            }
+
+
+            $new_name = $category->id.".".$request->file('category_photo')->getClientOriginalExtension();
+            Image::make($request->file('category_photo'))->resize(300,150)->save(base_path('public/dashboard/uploads/category_photos/'.$new_name));
+                Category::find($category->id)->update([
+                    'category_photo' => $new_name
+                ]);
+        }
         return redirect('category')->with('category_updated',$old_name.'Category Updated Successfully To'.$request->category_name);
 
     }
@@ -119,6 +135,10 @@ class CategoryController extends Controller
 
     public function harddelete($id)
     {
+        $photo_name = Category::find($id)->category_photo;
+        if ($photo_name !== 'default_category_photo.jpg') {
+            unlink(public_path()."/dashboard/uploads/category_photos/".$photo_name);
+        }
 
         Category::find($id)->forceDelete();
         return back()->with('harddelete', 'Category Deleted Forever');

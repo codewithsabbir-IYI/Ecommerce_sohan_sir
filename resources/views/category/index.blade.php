@@ -61,7 +61,9 @@ All Category
 
                             </tr>
                             @empty
-                            <td>No Category to show</td>
+                            <tr>
+                                <td class="text-center" colspan="5">No Data To Show</td>
+                            </tr>
                             @endforelse
 
 

@@ -26,6 +26,9 @@ Add Category
                         <label for="category_photo" class="form-label">Category Photo</label>
                         <input type="file"
                           class="@error('category_photo') is-invalid @enderror form-control" name="category_photo" id="category_photo" aria-describedby="helpId" placeholder="">
+                          @error('category_photo')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                       </div>
                     <button class="btn btn-info btn-sm" type="submit">Add Category</button>
                 </form>
