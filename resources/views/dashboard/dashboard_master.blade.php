@@ -9,6 +9,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('dashboard') }}/images/favicon.png">
 	<link rel="stylesheet" href="{{ asset('dashboard') }}/vendor/chartist/css/chartist.min.css">
+	<link rel="stylesheet" href="{{ asset('dashboard') }}/vendor/sweetalert2/dist/sweetalert2.min.css">
     <link href="{{ asset('dashboard') }}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="{{ asset('dashboard') }}/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="{{ asset('dashboard') }}/css/style.css" rel="stylesheet">
@@ -740,7 +741,7 @@
 									</div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="{{ asset('dashboard') }}/app-profile.html" class="dropdown-item ai-icon">
+                                    <a href="{{route('profile')}}" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -856,6 +857,7 @@
     <script src="{{ asset('dashboard') }}/js/custom.min.js"></script>
 	<script src="{{ asset('dashboard') }}/js/deznav-init.js"></script>
 	<script src="{{ asset('dashboard') }}/vendor/owl-carousel/owl.carousel.js"></script>
+	<script src="{{ asset('dashboard') }}/vendor/sweetalert2/dist/sweetalert2.min.js"></script>
 
 	<!-- Chart piety plugin files -->
     <script src="{{ asset('dashboard') }}/vendor/peity/jquery.peity.min.js"></script>
@@ -905,5 +907,6 @@
 			}, 1000);
 		});
 	</script>
+    @yield('footer_script');
 </body>
 </html>

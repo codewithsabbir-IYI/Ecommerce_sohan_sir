@@ -28,6 +28,9 @@ Auth::routes();
 // auth route end here
 
 Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+Route::post('change/name', [HomeController::class, 'change_name'])->name('change_name');
+Route::post('change/pasword', [HomeController::class, 'change_password'])->name('change_password');
 
 Route::delete('category/hard/delete/{id}', [CategoryController::class, 'harddelete'])->name('category.harddelete');
 Route::resource('category', CategoryController::class);

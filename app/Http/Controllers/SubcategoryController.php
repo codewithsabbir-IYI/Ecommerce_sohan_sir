@@ -55,7 +55,7 @@ class SubcategoryController extends Controller
             'subcategory_name' => $request->subcategory_name,
             'created_at' => Carbon::now()
         ]);
-        return redirect('subcategory.index')->with('subcategory_added', 'Sub Category Added Successfully');
+        return redirect('subcategory')->with('subcategory_added', 'Sub Category Added Successfully');
     }
 
     /**
