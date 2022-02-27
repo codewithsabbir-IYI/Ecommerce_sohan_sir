@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SubcategoryController;
 
 /*
@@ -17,16 +18,12 @@ use App\Http\Controllers\SubcategoryController;
 |
 */
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // auth route start here
 Auth::routes();
 
 // auth route end here
 
+Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 Route::post('change/name', [HomeController::class, 'change_name'])->name('change_name');
