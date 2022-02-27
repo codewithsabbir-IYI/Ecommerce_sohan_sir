@@ -771,12 +771,21 @@
         <div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
-                    <li><a href=" {{route('home')}} " class="ai-icon" aria-expanded="false">
-                                <i class="fa fa-tachometer"></i>
-                                <span class="nav-text">Dashboard Home</span>
-                            </a>
-                        </li>
-                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+
+                    <li>
+                        <a href=" {{route('home')}} " class="ai-icon" aria-expanded="false">
+                            <i class="fa fa-tachometer"></i>
+                            <span class="nav-text">Dashboard Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href=" {{route('index')}} " class="ai-icon" aria-expanded="false" target="_blank">
+                            <i class="fa fa-globe"></i>
+                            <span class="nav-text">Visit Website</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-list"></i>
                             <span class="nav-text">Categories</span>
                         </a>
@@ -784,7 +793,9 @@
                             <li><a href="{{route('category.create')}} ">Add Categories</a></li>
                             <li><a href="{{route('category.index')}} ">All Categories</a></li>
                         </ul>
-                        <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                    </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
                             <i class="fa fa-list"></i>
                             <span class="nav-text">Sub Categories</span>
                         </a>

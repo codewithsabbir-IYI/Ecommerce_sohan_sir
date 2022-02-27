@@ -20,6 +20,7 @@ class SubcategoryController extends Controller
      */
     public function index()
     {
+
         return view('subcategory.index',[
             'categories_group' => Subcategory::select('category_id')->groupBy('category_id')->get()
         ]);
@@ -48,7 +49,8 @@ class SubcategoryController extends Controller
     {
 
         $request->validate([
-            'subcategory_name' => 'required'
+            'subcategory_name' => 'required',
+            'category_id' => 'required'
         ]);
         Subcategory::insert([
             'category_id' => $request->category_id,

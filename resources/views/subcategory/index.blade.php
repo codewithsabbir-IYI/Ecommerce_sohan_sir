@@ -35,6 +35,7 @@ All Sub Category
                         </thead>
                         <tbody>
                             @forelse ($categories_group as $category)
+
                                 <tr class="text-center">
                                     <td scope="row" colspan="5">{{App\Models\Category::find($category->category_id)->category_name}} </td>
                                 </tr>
