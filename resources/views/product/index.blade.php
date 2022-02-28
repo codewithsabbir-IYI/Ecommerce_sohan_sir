@@ -42,6 +42,8 @@ All Products
                             <th>Product Other Info</th>
                             <th>Product Long Description</th> --}}
                             <th>Product Thumbnail Photo</th>
+                            {{-- <th>Product Barcode</th> --}}
+                            <th>Product QR Code</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -64,10 +66,12 @@ All Products
                                 <td scope="row">{{$product->product_long_description}} </td> --}}
                                 <td scope="row">
 
-                                    <img src=" {{ asset('frontend/uploads/product_thumbnail_photo') }}/{{$product->product_thumbnail_photo}} " alt="not found" >
+                                    <img src=" {{ asset('frontend/uploads/product_thumbnail_photo') }}/{{$product->product_thumbnail_photo}} " alt="not found" height="100">
                                 </td>
+                                {{-- <td scope="row">{!!DNS1D::getBarcodeSVG($product->product_sku, 'C39')!!}</td> --}}
+                                <td scope="row">{!!DNS2D::getBarcodeHTML($product->product_sku, 'QRCODE', 3,3);!!}</td>
                                 <td>
-                                    <a href="{{route('product.show',$product->id)}} " class="btn btn-info btn-sm">See Details</a>
+                                    {{-- <a href="{{route('product.show',$product->id)}} " class="btn btn-info btn-sm">See Details</a>
                                     <a href="{{route('product.edit',$product->id)}} " class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('product.destroy',$product->id) }} " method="post">
                                         @csrf
@@ -78,7 +82,7 @@ All Products
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Permamently Delete</button>
-                                    </form>
+                                    </form> --}}
                                 </td>
 
                             </tr>
