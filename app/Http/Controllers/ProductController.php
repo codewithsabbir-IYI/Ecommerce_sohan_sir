@@ -19,7 +19,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return view('product.index',[
+            'products' => Product::all()
+        ]);
     }
 
     /**
@@ -56,9 +58,10 @@ class ProductController extends Controller
             $new_name = $product_id.".".$request->file('product_thumbnail_photo')->getClientOriginalExtension();
             Image::make($request->file('product_thumbnail_photo'))->resize(270,310)->save(base_path('public/frontend/uploads/product_thumbnail_photo/'.$new_name));
                 Product::find($product_id)->update([
-                    'category_photo' => $new_name
+                    'product_thumbnail_photo' => $new_name
                 ]);
         }
+        return back();
 
     }
 

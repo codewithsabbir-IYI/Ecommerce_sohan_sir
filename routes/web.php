@@ -38,3 +38,4 @@ Route::resource('subcategory', SubcategoryController::class);
 Route::delete('subcategory/hard/delete/{id}', [SubcategoryController::class, 'harddelete'])->name('subcategory.harddelete');
 
 Route::resource('product', ProductController::class);
+Route::delete('product/hard/delete/{id}', [ProductController::class, 'harddelete'])->name('product.harddelete');
