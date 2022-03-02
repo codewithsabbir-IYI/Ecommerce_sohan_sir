@@ -57,8 +57,14 @@ All Products
                                 {{-- <td scope="row">{{$product->product_discounted_price}} </td>
                                 <td scope="row">{{$product->product_short_description}} </td>
                                 <td scope="row">{{$product->product_sku}} </td> --}}
-                                <td scope="row">{{App\Models\Category::find($product->category_id)->category_name}} </td>
-                                <td scope="row">{{App\Models\Subcategory::find($product->subcategory_id)->subcategory_name}} </td>
+                                <td scope="row">
+                                    {{ $product->realtionwithCategory->category_name }}
+                                    {{-- {{App\Models\Category::find($product->category_id)->category_name}} --}}
+                                </td>
+                                <td scope="row">
+                                    {{ $product->realtionwithSubcategory->subcategory_name }}
+                                    {{-- {{App\Models\Subcategory::find($product->subcategory_id)->subcategory_name}} --}}
+                                </td>
                                 {{-- <td scope="row">{{$product->product_weight}} </td>
                                 <td scope="row">{{$product->product_dimensions}} </td>
                                 <td scope="row">{{$product->product_materials}} </td>
