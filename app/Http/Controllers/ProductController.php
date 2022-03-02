@@ -20,7 +20,7 @@ class ProductController extends Controller
     public function index()
     {
         return view('product.index',[
-            'products' => Product::all()
+            'products' => Product::latest()->get()
         ]);
     }
 
@@ -108,5 +108,14 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    public function get_subcategory(Request $request)
+    {
+        foreach (Subcategory::where('category_id', $request->category_id)->get() as $subcategory) {
+            // echo $subcategory->id;
+            // echo $subcategory->subcategory_name;
+            echo "<option value='$subcategory->id'>$subcategory->subcategory_name</option>";
+        }
+
     }
 }

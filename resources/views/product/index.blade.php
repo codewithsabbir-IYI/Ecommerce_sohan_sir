@@ -33,17 +33,17 @@ All Products
                             <th>Product Regular Price</th>
                             {{-- <th>Product Discounted Price</th>
                             <th>Product Short Description</th>
-                            <th>Product Sku</th>
-                            <th>Category Id</th>
-                            <th>Subcategory Id</th>
-                            <th>Product Weight</th>
+                            <th>Product Sku</th> --}}
+                            <th>Category Name</th>
+                            <th>Subcategory Name</th>
+                            {{-- <th>Product Weight</th>
                             <th>Product Dimensions</th>
                             <th>Product Materials</th>
                             <th>Product Other Info</th>
                             <th>Product Long Description</th> --}}
                             <th>Product Thumbnail Photo</th>
                             {{-- <th>Product Barcode</th> --}}
-                            <th>Product QR Code</th>
+                            {{-- <th>Product QR Code</th> --}}
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -56,10 +56,10 @@ All Products
                                 <td scope="row">{{$product->product_regular_price}} </td>
                                 {{-- <td scope="row">{{$product->product_discounted_price}} </td>
                                 <td scope="row">{{$product->product_short_description}} </td>
-                                <td scope="row">{{$product->product_sku}} </td>
-                                <td scope="row">{{$product->category_id}} </td>
-                                <td scope="row">{{$product->subcategory_id}} </td>
-                                <td scope="row">{{$product->product_weight}} </td>
+                                <td scope="row">{{$product->product_sku}} </td> --}}
+                                <td scope="row">{{App\Models\Category::find($product->category_id)->category_name}} </td>
+                                <td scope="row">{{App\Models\Subcategory::find($product->subcategory_id)->subcategory_name}} </td>
+                                {{-- <td scope="row">{{$product->product_weight}} </td>
                                 <td scope="row">{{$product->product_dimensions}} </td>
                                 <td scope="row">{{$product->product_materials}} </td>
                                 <td scope="row">{{$product->product_other_info}} </td>
@@ -69,7 +69,7 @@ All Products
                                     <img src=" {{ asset('frontend/uploads/product_thumbnail_photo') }}/{{$product->product_thumbnail_photo}} " alt="not found" height="100">
                                 </td>
                                 {{-- <td scope="row">{!!DNS1D::getBarcodeSVG($product->product_sku, 'C39')!!}</td> --}}
-                                <td scope="row">{!!DNS2D::getBarcodeHTML($product->product_sku, 'QRCODE', 3,3);!!}</td>
+                                {{-- <td scope="row">{!!DNS2D::getBarcodeHTML($product->product_sku, 'QRCODE', 3,3);!!}</td> --}}
                                 <td>
                                     {{-- <a href="{{route('product.show',$product->id)}} " class="btn btn-info btn-sm">See Details</a>
                                     <a href="{{route('product.edit',$product->id)}} " class="btn btn-warning btn-sm">Edit</a>

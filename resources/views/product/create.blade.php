@@ -41,8 +41,8 @@ Add Product
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="category_id" class="form-label">Category Id: </label>
-                                  <select class="form-control" name="category_id" id="category_id">
+                                <label for="category_dropdown" class="form-label">Category Id: </label>
+                                  <select class="form-control" name="category_id" id="category_dropdown" >
                                     <option value=" ">Select One Category</option>
                                       @forelse ($categories as $category)
                                         <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -54,8 +54,8 @@ Add Product
                         </div>
                         <div class="col-md-6">
                             <div class="form-group mb-3">
-                                <label for="subcategory_id" class="form-label">Subcategory Id: </label>
-                                  <select class="form-control" name="subcategory_id" id="subcategory_id">
+                                <label for="subcategory_dropdown" class="form-label">Subcategory Id: </label>
+                                  <select class="form-control" name="subcategory_id" id="subcategory_dropdown">
                                     <option value=" ">Select One Subcategory</option>
                                     @forelse ($subcategories as $subcategory)
                                         <option value="{{$subcategory->id}}">{{$subcategory->subcategory_name}}</option>
@@ -105,4 +105,29 @@ Add Product
     </div>
 </div>
 
+@endsection
+@section('footer_script')
+    <script>
+        $(document).ready(function () {
+            $('#category_dropdown').select2();
+            $('#subcategory_dropdown').select2();
+            $('#category_dropdown').change(function(){
+                var category_id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    url:'/get/subcategory',
+                    data:{category_id:category_id},
+                    success: function(data){
+                        $('#subcategory_dropdown').html(data);
+                    }
+                })
+            });
+        });
+    </script>
 @endsection
