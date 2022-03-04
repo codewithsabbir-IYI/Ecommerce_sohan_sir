@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('category/details/{slug}', [FrontendController::class, 'category_details'])->name('category.details');
+Route::get('product/details/{slug}', [FrontendController::class, 'product_details'])->name('product.details');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('profile', [HomeController::class, 'profile'])->name('profile');
 Route::post('change/name', [HomeController::class, 'change_name'])->name('change_name');
