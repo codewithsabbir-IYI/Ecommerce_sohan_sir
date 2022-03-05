@@ -148,8 +148,11 @@
                             <div class="tab-pane fade show active" id="tab-product--all">
                                 <div class="row">
                                     @forelse ($products as $product)
-
-                                        @include('parts.product_thumbnail')
+                                    <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
+                                    data-aos-delay="200">
+                                    <!-- Single Prodect -->
+                                         @include('parts.product_thumbnail')
+                                    </div>
                                     @empty
                                         <p>No Product To Show</p>
                                     @endforelse
@@ -162,7 +165,10 @@
                                 <div class="tab-pane fade" id="tab-product-{{$category->id}}">
                                     <div class="row">
                                       @forelse (App\Models\Product::where('category_id', $category->id)->get() as $product)
+                                      <div class="col-lg-4 col-xl-3 col-md-6 col-sm-6 col-xs-6 mb-30px" data-aos="fade-up"
+                                      data-aos-delay="200">
                                         @include('parts.product_thumbnail');
+                                      </div>
                                       @empty
                                           <div class="row">
                                               <div class="col-12">
