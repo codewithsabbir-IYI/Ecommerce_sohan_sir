@@ -13,9 +13,12 @@
 	<link rel="stylesheet" href="{{ asset('dashboard') }}/vendor/sweetalert2/dist/sweetalert2.min.css">
     <link href="{{ asset('dashboard') }}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 	<link href="{{ asset('dashboard') }}/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+	<link href="{{ asset('dashboard') }}/vendor/summernote/summernote.css" rel="stylesheet">
     <link href="{{ asset('dashboard') }}/css/style.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- summernote link  --}}
+
 </head>
 <body>
 
@@ -885,6 +888,8 @@
 	<!-- Chart piety plugin files -->
     <script src="{{ asset('dashboard') }}/vendor/peity/jquery.peity.min.js"></script>
 
+    {{-- summernote script --}}
+    <script src="{{ asset('dashboard') }}/vendor/summernote/js/summernote.min.js"></script>
 	<!-- Apex Chart -->
 	<script src="{{ asset('dashboard') }}/vendor/apexchart/apexchart.js"></script>
 

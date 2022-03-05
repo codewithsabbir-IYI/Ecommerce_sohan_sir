@@ -109,6 +109,7 @@ Add Product
 @section('footer_script')
     <script>
         $(document).ready(function () {
+            $('#product_long_description').summernote();
             $('#category_dropdown').select2();
             $('#subcategory_dropdown').select2();
             $('#category_dropdown').change(function(){
@@ -130,4 +131,5 @@ Add Product
             });
         });
     </script>
+
 @endsection

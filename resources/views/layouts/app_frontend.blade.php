@@ -52,18 +52,18 @@
                 <div class="row">
                     <div class="col-auto align-self-center">
                         <div class="header-logo">
-                            <a href="index.html"><img src="{{asset('frontend/images')}}/logo/logo.png" alt="Site Logo" /></a>
+                            <a href="{{ route('index')}}"><img src="{{asset('frontend/images')}}/logo/logo.png" alt="Site Logo" /></a>
                         </div>
                     </div>
                     <div class="col align-self-center d-none d-lg-block">
                         <div class="main-menu">
                             <ul>
-                                <li class="dropdown"><a href="#">Home <i class="pe-7s-angle-down"></i></a>
+                                {{-- <li class="dropdown"><a href="#">Home <i class="pe-7s-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="index.html">Home</a></li>
                                     </ul>
-                                </li>
-                                <li class="dropdown position-static"><a href="#">Shop <i
+                                </li> --}}
+                                {{-- <li class="dropdown position-static"><a href="#">Shop <i
                                             class="pe-7s-angle-down"></i></a>
                                     <ul class="mega-menu d-block">
                                         <li class="d-flex">
@@ -123,7 +123,10 @@
                                         <li><a href="blog-grid.html">Blog Grid Page</a></li>
                                         <li><a href="blog-single.html">Blog Single Page</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
+                                <li><a href=" {{ route('index')}} ">Home</a></li>
+                                <li><a href="{{ route('index')}}">Shop</a></li>
+                                <li><a href="index.html">Blog</a></li>
                                 <li><a href="about.html">About us</a></li>
                                 <li><a href="contact.html">Contact us</a></li>
                             </ul>
@@ -132,7 +135,7 @@
                     <!-- Header Action Start -->
                     <div class="col col-lg-auto align-self-center pl-0">
                         <div class="header-actions">
-                            <a href="login.html" class="header-action-btn login-btn" data-bs-toggle="modal"
+                            <a href="{{ route('login')}}" class="header-action-btn login-btn" data-bs-toggle="modal"
                                 data-bs-target="#loginActive">Sign In</a>
                             <!-- Single Wedge Start -->
                             <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">
@@ -721,6 +724,7 @@
 
     <!-- Main Js -->
     <script src="{{asset('frontend')}}/js/main.js"></script>
+
 </body>
 
 
