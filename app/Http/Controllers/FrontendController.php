@@ -21,6 +21,26 @@ class FrontendController extends Controller
         $products = Product::all();
         return view('frontend.index',compact('categories', 'products'));
     }
+    public function shop()
+    {
+        if (isset($_GET['search_string'])) {
+            $products = Product::where('product_name', 'LIKE', '%'.$_GET['search_string'].'%')
+            ->orWhere('product_short_description', 'LIKE', '%'.$_GET['search_string'].'%')->orWhere('product_long_description', 'LIKE', '%'.$_GET['search_string'].'%')->get();
+
+        }else{
+            $products = Product::all();
+
+        }
+
+        if (isset($_GET['min']) && isset($_GET['max'])) {
+            $q1 = Product::whereBetween('product_discounted_price', [$_GET['min'], $_GET['max']])->get();
+            $q2 = Product::whereNull('product_discounted_price')->whereBetween('product_regular_price', [$_GET['min'], $_GET['max']])->get();
+            $products = $q1->merge($q2);
+        }
+        $total_search_product = Product::count();
+        return view('frontend.shop',compact('products', 'total_search_product'));
+
+    }
     public function category_details($slug)
     {
         $category_info = Category::where('slug',$slug)->first()->id;

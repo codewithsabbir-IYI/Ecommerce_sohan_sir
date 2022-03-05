@@ -125,7 +125,7 @@
                                     </ul>
                                 </li> --}}
                                 <li><a href=" {{ route('index')}} ">Home</a></li>
-                                <li><a href="{{ route('index')}}">Shop</a></li>
+                                <li><a href="{{ route('shop')}}">Shop</a></li>
                                 <li><a href="index.html">Blog</a></li>
                                 <li><a href="about.html">About us</a></li>
                                 <li><a href="contact.html">Contact us</a></li>

@@ -25,6 +25,7 @@ Auth::routes();
 // auth route end here
 
 Route::get('/', [FrontendController::class, 'index'])->name('index');
+Route::get('shop', [FrontendController::class, 'shop'])->name('shop');
 Route::get('category/details/{slug}', [FrontendController::class, 'category_details'])->name('category.details');
 Route::get('product/details/{slug}', [FrontendController::class, 'product_details'])->name('product.details');
 Route::get('home', [HomeController::class, 'index'])->name('home');
