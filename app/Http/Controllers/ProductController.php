@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Color;
 use App\Models\Subcategory;
 use App\Models\Product;
+use App\Models\Size;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -117,5 +119,31 @@ class ProductController extends Controller
             echo "<option value='$subcategory->id'>$subcategory->subcategory_name</option>";
         }
 
+    }
+
+    public function color(){
+
+        $colors = Color::all();
+        return view('product.color',compact('colors'));
+    }
+    public function colorstore(Request $request){
+
+        Color::insert($request->except('_token') + [
+            'created_at' => Carbon::now()
+        ]);
+        return back();
+    }
+
+    public function size(){
+        $sizes = Size::all();
+        return view('product.size', compact('sizes'));
+    }
+
+    public function sizestore(Request $request){
+
+        Size::insert($request->except('_token') + [
+            'created_at' => Carbon::now()
+        ]);
+        return back();
     }
 }

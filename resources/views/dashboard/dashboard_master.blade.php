@@ -819,6 +819,16 @@
                             <li><a href="{{route('product.index')}} ">All Products</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="fa fa-cubes"></i>
+                            <span class="nav-text">Variation Maneger</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{route('product.color')}} ">Color</a></li>
+                            <li><a href="{{route('product.size')}} ">Size</a></li>
+                        </ul>
+                    </li>
                 </ul>
 				<div class="add-menu-sidebar">
 					<img src="{{ asset('dashboard') }}/images/calendar.png" alt="" class="mr-3">

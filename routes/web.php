@@ -40,5 +40,11 @@ Route::resource('subcategory', SubcategoryController::class);
 Route::delete('subcategory/hard/delete/{id}', [SubcategoryController::class, 'harddelete'])->name('subcategory.harddelete');
 
 Route::resource('product', ProductController::class);
+Route::get('/color',[ ProductController::class, 'color'])->name('product.color');
+Route::get('/size', [ProductController::class, 'size'])->name('product.size');
+Route::post('/product/color/store', [ProductController::class, 'colorstore'])->name('product.color.store');
+Route::post('/product/size/store', [ProductController::class, 'sizestore'])->name('product.size.store');
+
+
 Route::delete('product/hard/delete/{id}', [ProductController::class, 'harddelete'])->name('product.harddelete');
 Route::post('/get/subcategory', [ProductController::class, 'get_subcategory'])->name('get.subcategory');

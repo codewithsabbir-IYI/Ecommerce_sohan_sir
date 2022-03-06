@@ -94,10 +94,7 @@
                         <span>Color</span>
                         <div class="pro-details-color">
                             <ul>
-                                <li><a class="active-color yellow" href="#"></a></li>
-                                <li><a class="black" href="#"></a></li>
-                                <li><a class="red" href="#"></a></li>
-                                <li><a class="pink" href="#"></a></li>
+                                <li><a style="background-color: #000" href="#"></a></li>
                             </ul>
                         </div>
                     </div>
