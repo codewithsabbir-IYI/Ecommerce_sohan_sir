@@ -44,6 +44,8 @@ Route::get('/color',[ ProductController::class, 'color'])->name('product.color')
 Route::get('/size', [ProductController::class, 'size'])->name('product.size');
 Route::post('/product/color/store', [ProductController::class, 'colorstore'])->name('product.color.store');
 Route::post('/product/size/store', [ProductController::class, 'sizestore'])->name('product.size.store');
+Route::get('/product/add/inventory/{id}', [ProductController::class, 'addinventory'])->name('product.add.inventory');
+Route::post('/product/add/inventory/{id}', [ProductController::class, 'addinventorypost'])->name('product.add.inventory.post');
 
 
 Route::delete('product/hard/delete/{id}', [ProductController::class, 'harddelete'])->name('product.harddelete');

@@ -77,6 +77,7 @@ All Products
                                 {{-- <td scope="row">{!!DNS1D::getBarcodeSVG($product->product_sku, 'C39')!!}</td> --}}
                                 {{-- <td scope="row">{!!DNS2D::getBarcodeHTML($product->product_sku, 'QRCODE', 3,3);!!}</td> --}}
                                 <td>
+                                    <a href="{{route('product.add.inventory',$product->id)}} " class="btn btn-info btn-sm">Add Inventory</a>
                                     {{-- <a href="{{route('product.show',$product->id)}} " class="btn btn-info btn-sm">See Details</a>
                                     <a href="{{route('product.edit',$product->id)}} " class="btn btn-warning btn-sm">Edit</a>
                                     <form action="{{ route('product.destroy',$product->id) }} " method="post">
@@ -89,6 +90,9 @@ All Products
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Permamently Delete</button>
                                     </form> --}}
+                                </td>
+                                <td>
+
                                 </td>
 
                             </tr>

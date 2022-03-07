@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Color;
+use App\Models\Inventory;
 use App\Models\Subcategory;
 use App\Models\Product;
 use App\Models\Size;
@@ -144,6 +145,36 @@ class ProductController extends Controller
         Size::insert($request->except('_token') + [
             'created_at' => Carbon::now()
         ]);
+        return back();
+    }
+    public function addinventory($product_id ){
+
+        $product =  Product::find($product_id);
+        $colors = Color::all();
+        $sizes = Size::all();
+        $inventories = Inventory::where('product_id', $product_id)->get();
+        return view('product.addinventory', compact('sizes','colors', 'product', 'inventories'));
+    }
+    public function addinventorypost (Request $request, $product_id){
+
+        $exists_check =  Inventory::where([
+            'product_id' => $product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id
+        ])->exists();
+
+        if ($exists_check ==1) {
+            Inventory::where([
+                'product_id' => $product_id,
+                'color_id' => $request->color_id,
+                'size_id' => $request->size_id
+            ])->increment('quantity', $request->quantity);
+        }else {
+            Inventory::insert($request->except('_token') + [
+                'product_id' => $product_id,
+                'created_at' => Carbon::now()
+            ]);
+        }
         return back();
     }
 }
