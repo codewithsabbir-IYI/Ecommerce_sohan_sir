@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
@@ -44,6 +45,11 @@ Route::get('/color',[ ProductController::class, 'color'])->name('product.color')
 Route::get('/size', [ProductController::class, 'size'])->name('product.size');
 Route::post('/get/size', [FrontendController::class, 'getsize'])->name('get.size');
 Route::post('/get/stock', [FrontendController::class, 'getstock'])->name('get.stock');
+Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
+
+Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+
+
 Route::post('/product/color/store', [ProductController::class, 'colorstore'])->name('product.color.store');
 Route::post('/product/size/store', [ProductController::class, 'sizestore'])->name('product.size.store');
 Route::get('/product/add/inventory/{id}', [ProductController::class, 'addinventory'])->name('product.add.inventory');

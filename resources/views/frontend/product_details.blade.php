@@ -422,7 +422,27 @@
                         if (parseInt(user_input_amount) > parseInt(stock_amount)) {
                             alert('sorry stock not available');
                         } else {
-                            alert('good you can order');
+                            var product_id = "{{$product_info->id}}";
+                            var color_id = $('#choosed_color_id').val();
+                            var size_id = $('#choosed_size_id').val();
+                            var user_input_amount = $('#user_input_amount').val();
+                            var user_id = "{{auth()->id()}}";
+
+                                            // Ajax Start //
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type: 'POST',
+                                url: '/add/to/cart',
+                                data: {product_id: product_id, color_id:color_id, size_id: size_id,user_input_amount:user_input_amount,user_id:user_id},
+                                success: function(data){
+                                   alert(data);
+                                }
+                            });
+                            //Ajax End //
                         }
 
                     } else {
