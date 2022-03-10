@@ -51,7 +51,6 @@ Add Inventory
                 <table class="table table-bordered table-inverse ">
                     <thead class="thead-inverse|thead-default">
                         <tr>
-                            <th>SL: </th>
                             <th>Color Name</th>
                             <th>Size Name</th>
                             <th>Quantity</th>
@@ -61,7 +60,6 @@ Add Inventory
                         <tbody>
                             @forelse ($inventories as $inventory)
                                 <tr>
-                                    <td></td>
                                     <td scope="row">
                                         {{$inventory->realtionwithColor->color_name}} -
                                         <span style="background-color:  {{$inventory->realtionwithColor->color_code}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

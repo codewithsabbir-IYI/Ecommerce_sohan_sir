@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="swiper-container zoom-thumbs mt-3 mb-3">
+                {{-- <div class="swiper-container zoom-thumbs mt-3 mb-3">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <img class="img-responsive m-auto" src="{{ asset('frontend') }}/images/product-image/small-image/1.jpg"
@@ -65,11 +65,12 @@
                                 alt="">
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
                 <div class="product-details-content quickview-content">
                     <h2>{{ $product_info->product_name }}</h2>
+                    <span>Stock: <span class="stock" id="stock_amount">--</span></span>
                     <div class="pricing-meta">
                         <ul>
                             @if ($product_info->product_discounted_price)
@@ -90,11 +91,27 @@
                         </div>
                         <span class="read-review"><a class="reviews" href="#">( 5 Customer Review )</a></span>
                     </div>
+                    <input type="hidden" class="form-control" name="choosed_color_id" id="choosed_color_id">
+                    <input type="hidden" class="form-control" name="choosed_size_id" id="choosed_size_id">
+                    <input type="hidden" name="login_status" id="login_status" value= @auth"true" @else
+                    "false"
+                    @endauth>
+
                     <div class="pro-details-color-info d-flex align-items-center">
                         <span>Color</span>
                         <div class="pro-details-color">
                             <ul>
-                                <li><a style="background-color: #000" href="#"></a></li>
+                                @forelse ($colors as $color)
+                                    {{-- @if ($color->relationwithcolor->color_name == 'N/A')
+                                        <li>
+                                            <span id="{{ $color->color_id }}" class="color_option bg-secondary text-white badge mt-2">No Color</span>
+                                        </li>
+                                    @else --}}
+                                        <li><a class="color_option" id="{{ $color->color_id }}" style="background-color: {{ $color->realtionwithColor->color_code }}" ></a></li>
+                                    {{-- @endif --}}
+                                    @empty
+                                    No Colors Available for this Product :(
+                                    @endforelse
                             </ul>
                         </div>
                     </div>
@@ -102,21 +119,18 @@
                     <div class="pro-details-size-info d-flex align-items-center">
                         <span>Size</span>
                         <div class="pro-details-size">
-                            <ul>
-                                <li><a class="active-size gray" href="#">S</a></li>
-                                <li><a class="gray" href="#">M</a></li>
-                                <li><a class="gray" href="#">L</a></li>
-                                <li><a class="gray" href="#">XL</a></li>
-                            </ul>
+                            <select class="form-control" id="size_dropdown">
+                                <option value="">-Please Choose a Color-</option>
+                            </select>
                         </div>
                     </div>
                     <p class="m-0">{{ $product_info->product_short_description}}</p>
                     <div class="pro-details-quality">
                         <div class="cart-plus-minus">
-                            <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
+                            <input id="user_input_amount" class="cart-plus-minus-box" type="text" name="qtybutton" value="1" />
                         </div>
                         <div class="pro-details-cart">
-                            <button class="add-cart" href="#"> Add To
+                            <button id="add_to_cart_btn" class="add-cart"> Add To
                                 Cart</button>
                         </div>
                         <div class="pro-details-compare-wishlist pro-details-wishlist ">
@@ -314,7 +328,7 @@
 <!-- product details description area end -->
 
 <!-- Related product Area Start -->
-<div class="related-product-area pb-100px">
+{{-- <div class="related-product-area pb-100px">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -343,7 +357,85 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Related product Area End -->
 
 @endsection
+
+@section('footer_script')
+    <script>
+    $(document).ready(function(){
+
+        $('.color_option').click(function(){
+            var color_id = $(this).attr('id');
+            var product_id = "{{$product_info->id}}";
+            $('#choosed_color_id').val(color_id);
+            $('.stock').html('--');
+            // Ajax Start //
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/get/size',
+                data: {product_id: product_id, color_id:color_id},
+                success: function(data){
+                    $('#size_dropdown').html(data);
+                }
+            });
+            // Ajax End //
+        });
+
+        $('#size_dropdown').change(function(){
+            var color_id = $('#choosed_color_id').val();
+            var size_id = $(this).val();
+            var product_id = "{{$product_info->id}}";
+            $('#choosed_size_id').val(size_id);
+
+            // Ajax Start //
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/get/stock',
+                data: {product_id: product_id, color_id:color_id, size_id: size_id},
+                success: function(data){
+                    $('.stock').html(data);
+                }
+            });
+            // Ajax End //
+
+        });
+        $('#add_to_cart_btn').click(function(){
+            if ($('#login_status').val() == 'false') {
+                window.location.href =" {{ route('login')}} ";
+            } else {
+                if ($('#choosed_color_id').val()) {
+                    if ($('#choosed_size_id').val()) {
+                        var stock_amount = $('#stock_amount').html();
+                        var user_input_amount = $('#user_input_amount').val();
+                        if (parseInt(user_input_amount) > parseInt(stock_amount)) {
+                            alert('sorry stock not available');
+                        } else {
+                            alert('good you can order');
+                        }
+
+                    } else {
+                        alert('Please Choose Size')
+                    }
+                } else {
+                    alert('Please Choose Color')
+                }
+            }
+
+        })
+
+    })
+    </script>
+@endsection
+

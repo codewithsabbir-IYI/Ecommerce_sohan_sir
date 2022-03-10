@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="robots" content="index, follow" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
     <title>Jesco - Fashoin eCommerce HTML Template</title>
     <meta name="description" content="Jesco - Fashoin eCommerce HTML Template" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -27,6 +30,7 @@
     <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
     <link rel="stylesheet" href="assets/css/plugins/nice-select.css" />
     <link rel="stylesheet" href="assets/css/plugins/venobox.css" /> -->
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
     <!-- Use the minified version files listed below for better performance and remove the files listed above -->
     <link rel="stylesheet" href="{{asset('frontend')}}/css/vendor/vendor.min.css" />
@@ -135,8 +139,12 @@
                     <!-- Header Action Start -->
                     <div class="col col-lg-auto align-self-center pl-0">
                         <div class="header-actions">
-                            <a href="{{ route('login')}}" class="header-action-btn login-btn" data-bs-toggle="modal"
-                                data-bs-target="#loginActive">Sign In</a>
+                            @guest
+                            <a href="{{ route('login')}}" class="header-action-btn login-btn" >Sign In</a>
+                            @else
+                            <a href="{{ route('profile')}}" class="header-action-btn login-btn" >{{ auth()->user()->name }}</a>
+                            @endguest
+
                             <!-- Single Wedge Start -->
                             <a href="#" class="header-action-btn" data-bs-toggle="modal" data-bs-target="#searchActive">
                                 <i class="pe-7s-search"></i>
@@ -723,7 +731,9 @@
     <script src="{{asset('frontend')}}/js/plugins/plugins.min.js"></script>
 
     <!-- Main Js -->
-    <script src="{{asset('frontend')}}/js/main.js"></script>
+    {{-- <script src="{{asset('frontend')}}/js/main.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    @yield('footer_script');
 
 </body>
 

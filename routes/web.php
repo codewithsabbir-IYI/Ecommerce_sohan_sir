@@ -42,6 +42,8 @@ Route::delete('subcategory/hard/delete/{id}', [SubcategoryController::class, 'ha
 Route::resource('product', ProductController::class);
 Route::get('/color',[ ProductController::class, 'color'])->name('product.color');
 Route::get('/size', [ProductController::class, 'size'])->name('product.size');
+Route::post('/get/size', [FrontendController::class, 'getsize'])->name('get.size');
+Route::post('/get/stock', [FrontendController::class, 'getstock'])->name('get.stock');
 Route::post('/product/color/store', [ProductController::class, 'colorstore'])->name('product.color.store');
 Route::post('/product/size/store', [ProductController::class, 'sizestore'])->name('product.size.store');
 Route::get('/product/add/inventory/{id}', [ProductController::class, 'addinventory'])->name('product.add.inventory');

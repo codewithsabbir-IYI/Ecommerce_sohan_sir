@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Frontend;
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
@@ -51,7 +52,32 @@ class FrontendController extends Controller
     {
         $product_info = Product::where('slug',$slug)->first();
         $related_products = Product::where('category_id',$product_info->category_id)->get();
-        return view('frontend.product_details',compact('product_info','related_products'));
+        $colors = Inventory::where('product_id', $product_info->id)->groupBy('color_id')->select('color_id')->get();
+        return view('frontend.product_details',compact('product_info','related_products','colors'));
+    }
+    public function getsize(Request $request){
+        $strtosend = "<option disable>Choose a size</option>";
+        $sizes = Inventory::where([
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id
+        ])->get();
+
+        foreach ($sizes as $size) {
+            $strtosend .= "<option class='size_option' value='". $size->realtionwithSize->id ."' >". $size->realtionwithSize->size_name ."</option>";
+
+            // $strtosend .= "<option>adfasddf</option>";
+        }
+        return $strtosend;
+    }
+
+    public function getstock(Request $request)
+    {
+        return $stock = Inventory::where([
+            'product_id' => $request->product_id,
+            'color_id' => $request->color_id,
+            'size_id' => $request->size_id
+        ])->first()->quantity;
+
     }
 
     /**
