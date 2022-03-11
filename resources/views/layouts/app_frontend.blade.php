@@ -45,9 +45,6 @@
 <body>
 
     <!-- Top Bar -->
-
-    <div class="header-to-bar"> HELLO EVERYONE! 25% Off All Products </div>
-
     <!-- Top Bar -->
     <!-- Header Area Start -->
     <header>
@@ -133,6 +130,7 @@
                                 <li><a href="index.html">Blog</a></li>
                                 <li><a href="about.html">About us</a></li>
                                 <li><a href="contact.html">Contact us</a></li>
+                                <li><a href="{{ route('cart') }}">Cart</a></li>
                             </ul>
                         </div>
                     </div>

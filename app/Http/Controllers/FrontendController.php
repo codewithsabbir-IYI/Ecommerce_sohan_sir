@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\If_;
 
 class FrontendController extends Controller
 {
@@ -83,14 +84,33 @@ class FrontendController extends Controller
     }
     public function add_to_cart(Request $request)
     {
-       Cart::insert([
-           'product_id' => $request->product_id,
-           'color_id'   => $request->color_id,
-           'size_id'    => $request->size_id,
-           'user_input_amount' => $request->user_input_amount,
-           'user_id'    => $request->user_id,
-           'created_at' => Carbon::now(),
-       ]);
+        $exeists_checker = Cart::where([
+            'product_id' => $request->product_id,
+            'color_id'   => $request->color_id,
+            'size_id'    => $request->size_id,
+            'user_id'    => $request->user_id,
+        ])->exists();
+
+        if ($exeists_checker) {
+            Cart::where([
+                'product_id' => $request->product_id,
+                'color_id'   => $request->color_id,
+                'size_id'    => $request->size_id,
+                'user_id'    => $request->user_id,
+            ])->increment('user_input_amount', $request->user_input_amount);
+
+        } else {
+            Cart::insert([
+                'product_id' => $request->product_id,
+                'color_id'   => $request->color_id,
+                'size_id'    => $request->size_id,
+                'user_input_amount' => $request->user_input_amount,
+                'user_id'    => $request->user_id,
+                'created_at' => Carbon::now(),
+            ]);
+
+        }
+
       echo "Cart Added Successfully Please Check Your Cart";
     }
 

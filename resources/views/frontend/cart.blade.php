@@ -27,7 +27,8 @@
             <h3 class="cart-page-title">Your cart items</h3>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form action="#">
+                    <form action="{{ route('cart.item.all.update') }}" method="POST">
+                        @csrf
                         <div class="table-content table-responsive cart-table-content">
                             <table>
                                 <thead>
@@ -45,7 +46,7 @@
                                         $total_amount = 0;
                                     @endphp
 
-                                    @foreach ($carts as $cart)
+                                    @forelse ($carts as $cart)
 
                                         <tr>
                                             <td class="product-thumbnail">
@@ -80,20 +81,24 @@
 
                                             <td class="product-quantity">
                                                 <div class="cart-plus-minus">
-                                                    <input class="cart-plus-minus-box" type="text" name="qtybutton"
+                                                    <input class="cart-plus-minus-box" type="text" name="cart_item[{{$cart->id}}]"
                                                         value="{{$product_user_amount = $cart->user_input_amount}}" />
                                                 </div>
                                             </td>
                                             <td class="product-subtotal">{{ $subtotal_prise = $unit_prise * $product_user_amount}}</td>
                                             <td class="product-remove">
                                                 <a href="#"><i class="fa fa-pencil"></i></a>
-                                                <a href="#"><i class="fa fa-times"></i></a>
+                                                <a href="{{route('remove.cart',$cart->id)}} "><i class="fa fa-times"></i></a>
                                             </td>
                                         </tr>
                                         @php
                                             $total_amount += $subtotal_prise;
                                         @endphp
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="50" class="text-bold">Your Cart Item Is Empty</td>
+                                        </tr>
+                                    @endforelse
 
                                 </tbody>
                             </table>
@@ -102,11 +107,11 @@
                             <div class="col-lg-12">
                                 <div class="cart-shiping-update-wrapper">
                                     <div class="cart-shiping-update">
-                                        <a href="#">Continue Shopping</a>
+                                        <a href="{{route('shop')}}">Continue Shopping</a>
                                     </div>
                                     <div class="cart-clear">
-                                        <button>Update Shopping Cart</button>
-                                        <a href="#">Clear Shopping Cart</a>
+                                        <button type="submit">Update Shopping Cart</button>
+                                        <a href="{{route('clear.cart')}}">Clear Shopping Cart</a>
                                     </div>
                                 </div>
                             </div>

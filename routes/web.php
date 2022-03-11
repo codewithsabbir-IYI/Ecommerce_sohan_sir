@@ -48,6 +48,10 @@ Route::post('/get/stock', [FrontendController::class, 'getstock'])->name('get.st
 Route::post('/add/to/cart', [FrontendController::class, 'add_to_cart'])->name('add.to.cart');
 
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
+Route::get('/remove/cart/{id}', [CartController::class, 'remove_cart'])->name('remove.cart');
+Route::get('/clear/cart', [CartController::class, 'clear_cart'])->name('clear.cart');
+Route::post('/cart/item/all/update', [CartController::class, 'cart_item_all_update'])->name('cart.item.all.update');
+
 
 
 Route::post('/product/color/store', [ProductController::class, 'colorstore'])->name('product.color.store');
