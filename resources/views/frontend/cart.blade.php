@@ -44,11 +44,13 @@
                                 <tbody>
                                     @php
                                         $total_amount = 0;
+                                        $order_button = true;
                                     @endphp
 
                                     @forelse ($carts as $cart)
 
                                         <tr>
+
                                             <td class="product-thumbnail">
                                                 <a href="#"><img style="width: 80%" class="img-responsive ml-15px"
                                                         src="{{asset('frontend/uploads/product_thumbnail_photo')}}/{{$cart->realtionwithProduct->product_thumbnail_photo}}" alt="" />
@@ -83,6 +85,14 @@
                                                 <div class="cart-plus-minus">
                                                     <input class="cart-plus-minus-box" type="text" name="cart_item[{{$cart->id}}]"
                                                         value="{{$product_user_amount = $cart->user_input_amount}}" />
+                                                        @if (avaiable_stock( $cart->product_id, $cart->color_id, $cart->size_id) < $product_user_amount = $cart->user_input_amount)
+                                                            <span class="badge bg-danger" >Out Of Stock</span>
+                                                            <span class="badge bg-info" >Available: {{avaiable_stock( $cart->product_id, $cart->color_id, $cart->size_id)}}</span>
+
+                                                            <?php
+                                                                $order_button = false;
+                                                            ?>
+                                                        @endif
                                                 </div>
                                             </td>
                                             <td class="product-subtotal">{{ $subtotal_prise = $unit_prise * $product_user_amount}}</td>
@@ -189,7 +199,14 @@
                                     </ul>
                                 </div>
                                 <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                                @if ($order_button)
                                 <a href="checkout.html">Proceed to Checkout</a>
+
+                                @else
+                                    <div class="alert alert-danger">
+                                        Please Check Stock Out Product
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
