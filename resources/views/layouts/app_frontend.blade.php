@@ -118,8 +118,8 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="dropdown "><a href="#">Blogs <i class="pe-7s-angle-down"></i></a>
+                                </li>--}}
+                                {{-- <li class="dropdown "><a href="#">Blogs <i class="pe-7s-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="blog-grid.html">Blog Grid Page</a></li>
                                         <li><a href="blog-single.html">Blog Single Page</a></li>
@@ -380,7 +380,7 @@
 
     <!-- Content Start Here -->
     @yield('content')
-    <!-- Content End Here -->
+    <!-- Content End Here --
 
     <!-- Footer Area Start -->
     <div class="footer-area m-lrb-30px">

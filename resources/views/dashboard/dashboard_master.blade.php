@@ -829,11 +829,14 @@
                             <li><a href="{{route('product.size')}} ">Size</a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a href=" {{route('shipping')}} " class="ai-icon" aria-expanded="false" >
+                            <i class="fa fa-car"></i>
+                            <span class="nav-text">Shipping</span>
+                        </a>
+                    </li>
                 </ul>
-				<div class="add-menu-sidebar">
-					<img src="{{ asset('dashboard') }}/images/calendar.png" alt="" class="mr-3">
-					<p class="	font-w500 mb-0">Create Workout Plan Now</p>
-				</div>
+
 				<div class="copyright">
 					<p><strong>Gymove Fitness Admin Dashboard</strong> © 2020 All Rights Reserved</p>
 					<p>Made with <span class="heart"></span> by DexignZone</p>

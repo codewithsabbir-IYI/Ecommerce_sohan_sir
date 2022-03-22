@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -10,7 +11,8 @@ class CartController extends Controller
 {
     public function cart(){
         $carts = Cart::where('user_id', auth()->id())->get();
-        return view('frontend.cart', compact('carts'));
+        $countries = Shipping::groupBy('country_id')->select('country_id')->get();
+        return view('frontend.cart', compact('carts','countries'));
     }
 
     public function remove_cart(Cart $id){

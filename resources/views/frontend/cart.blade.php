@@ -140,24 +140,22 @@
                                             <label>
                                                 * Country
                                             </label>
-                                            <select class="email s-email s-wid">
-                                                <option>Bangladesh</option>
-                                                <option>Albania</option>
-                                                <option>Åland Islands</option>
-                                                <option>Afghanistan</option>
-                                                <option>Belgium</option>
+                                            <select class="email s-email s-wid" id="country_dropdown">
+                                                <option>--Select Your Country--</option>
+                                                @forelse ($countries as $country)
+                                                <option value="{{ $country->country_id}}">{{ $country->retationwithcountry->country_name }}</option>
+                                                @empty
+                                                    <option value="">No Data To Show</option>
+                                                @endforelse
                                             </select>
                                         </div>
                                         <div class="tax-select">
                                             <label>
-                                                * Region / State
+                                                State/City
                                             </label>
-                                            <select class="email s-email s-wid">
-                                                <option>Bangladesh</option>
-                                                <option>Albania</option>
-                                                <option>Åland Islands</option>
-                                                <option>Afghanistan</option>
-                                                <option>Belgium</option>
+                                            <select class="email s-email s-wid" id="city_dropdown">
+                                                <option>Choose Country First</option>
+
                                             </select>
                                         </div>
                                         <div class="tax-select mb-25px">
@@ -166,7 +164,6 @@
                                             </label>
                                             <input type="text" />
                                         </div>
-                                        <button class="cart-btn-2" type="submit">Get A Quote</button>
                                     </div>
                                 </div>
                             </div>
@@ -190,15 +187,11 @@
                                 <div class="title-wrap">
                                     <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                 </div>
-                                <h5>Total products <span>{{$total_amount}}</span></h5>
-                                <div class="total-shipping">
-                                    <h5>Total shipping</h5>
-                                    <ul>
-                                        <li><input type="checkbox" /> Standard <span>$20.00</span></li>
-                                        <li><input type="checkbox" /> Express <span>$30.00</span></li>
-                                    </ul>
-                                </div>
-                                <h4 class="grand-totall-title">Grand Total <span>$260.00</span></h4>
+                                <h5>Total Product Amount: <span id="total_amount">{{$total_amount}}</span></h5>
+                                <h5>(-) Coupon Discount <span>0</span></h5>
+                                <h5>(+)Shipping Amount <span id="shipping_charge">0</span></h5>
+
+                                <h4 class="grand-totall-title">Grand Total <span id="grand_total">0</span></h4>
                                 @if ($order_button)
                                 <a href="checkout.html">Proceed to Checkout</a>
 
@@ -215,4 +208,36 @@
         </div>
     </div>
     <!-- Cart Area End -->
+@endsection
+
+@section('footer_script')
+    <script>
+        $(document).ready(function(){
+            $('#country_dropdown').change(function(){
+                var country_id = $(this).val();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    url:'/get/city',
+                    data:{country_id:country_id},
+                    success: function(data){
+                        $('#city_dropdown').html(data);
+                    }
+                })
+            });
+
+            $('#city_dropdown').change(function(){
+                $('#shipping_charge').html($(this).val());
+                var total_amount = $('#total_amount').html();
+                var shipping_charge = $('#shipping_charge').html();
+                $('#grand_total').html(parseInt(total_amount) + parseInt(shipping_charge))
+            })
+        })
+
+    </script>
 @endsection

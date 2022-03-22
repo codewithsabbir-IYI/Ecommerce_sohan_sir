@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Shipping;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Image;
@@ -69,5 +72,16 @@ class HomeController extends Controller
             return back()->with('current_password_not_match', 'Current Password is not matching with us');
         }
 
+    }
+    public function shipping(){
+        $shipping_charges = Shipping::all();
+        $countries = Country::all();
+        return view('dashboard.shipping',compact('countries','shipping_charges'));
+    }
+    public function add_shipping(Request $request){
+        Shipping::insert($request->except('_token')+[
+            'created_at' => Carbon::now()
+        ]);
+        return back();
     }
 }

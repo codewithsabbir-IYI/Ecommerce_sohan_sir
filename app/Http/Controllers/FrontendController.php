@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Frontend;
 use App\Models\Inventory;
 use App\Models\Product;
+use App\Models\Shipping;
 use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -112,6 +113,15 @@ class FrontendController extends Controller
         }
 
       echo "Cart Added Successfully Please Check Your Cart";
+    }
+    public function get_city(Request $request){
+        $str_to_send = "<option> Select Your City </option>";
+        $cities = Shipping::where('country_id', $request->country_id)->get();
+        foreach ($cities as $city) {
+            $str_to_send .= "<option value='$city->shipping_charge'>$city->city_name</option>";
+
+        }
+        echo $str_to_send ;
     }
 
     /**
