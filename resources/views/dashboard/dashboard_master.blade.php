@@ -835,6 +835,12 @@
                             <span class="nav-text">Shipping</span>
                         </a>
                     </li>
+                    <li>
+                        <a href=" {{route('coupon.index')}} " class="ai-icon" aria-expanded="false" >
+                            <i class="fa fa-money"></i>
+                            <span class="nav-text">Cuppon</span>
+                        </a>
+                    </li>
                 </ul>
 
 				<div class="copyright">

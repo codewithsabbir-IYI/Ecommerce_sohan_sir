@@ -1,4 +1,4 @@
-@extends('layouts.app_frontend');
+@extends('layouts.app_frontend')
 
 @section('content')
 <!-- breadcrumb-area start -->

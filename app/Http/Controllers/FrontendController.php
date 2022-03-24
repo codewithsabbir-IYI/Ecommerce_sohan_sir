@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Category;
+use App\Models\Coupon;
 use App\Models\Frontend;
 use App\Models\Inventory;
 use App\Models\Product;
@@ -122,6 +123,48 @@ class FrontendController extends Controller
 
         }
         echo $str_to_send ;
+    }
+    public function check_cuppon(Request $request){
+
+         //return $request->total_amount;
+        $exists =  Coupon::where('coupon_name', $request->coupon_name)->exists();
+        $coupon =  Coupon::where('coupon_name', $request->coupon_name)->first();
+        // return $coupon->coupon_name;
+        // return $coupon->coupon_limit;
+        // return $coupon->coupon_validity;
+        // return $coupon->coupon_type;
+        // return $coupon->discount_amount;
+        if($exists){
+
+            if($coupon->coupon_limit == 0){
+                return response()->json(['error' => 'This coupon Limit is already over']);
+            }else{
+                if($coupon->coupon_validity < Carbon::today()){
+                    return response()->json(['error' => 'This coupon validity is already over']);
+                }else{
+                    if($coupon->coupon_type == 1){
+                        $coupon_discount_amount = ($request->total_amount / 100) * $coupon->discount_amount;
+                        echo $coupon_discount_amount;
+                    }else{
+                        echo $coupon->discount_amount;
+                    }
+                }
+            }
+        }else{
+            // return response(['error'=>'This Is Not Our Coupon']);
+            return response()->json(['error' => 'This is not our coupon']);
+        }
+    }
+    public function checkout_redirect(Request $request){
+
+       session()->put('s_total_amount', $request->total_amount);
+       session()->put('s_discount_amount', $request->discount_amount);
+       session()->put('s_shipping_charge', $request->shipping_charge);
+       session()->put('s_grand_total', $request->grand_total);
+       session()->put('s_country_id', $request->country_id);
+       session()->put('s_city_name', $request->city_name);
+       session()->put('s_coupon_name', $request->coupon_name);
+
     }
 
     /**

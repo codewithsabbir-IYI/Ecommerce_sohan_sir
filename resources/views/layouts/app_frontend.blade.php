@@ -138,7 +138,7 @@
                     <div class="col col-lg-auto align-self-center pl-0">
                         <div class="header-actions">
                             @guest
-                            <a href="{{ route('login')}}" class="header-action-btn login-btn" >Sign In</a>
+                            <a href="{{ route('coustomer')}}" class="header-action-btn login-btn" >Sign In</a>
                             @else
                             <a href="{{ route('profile')}}" class="header-action-btn login-btn" >{{ auth()->user()->name }}</a>
                             @endguest

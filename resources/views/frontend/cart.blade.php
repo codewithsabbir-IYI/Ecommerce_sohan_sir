@@ -1,4 +1,4 @@
-@extends('layouts.app_frontend');
+@extends('layouts.app_frontend')
 
 @section('content')
 
@@ -175,25 +175,30 @@
                                 </div>
                                 <div class="discount-code">
                                     <p>Enter your coupon code if you have one.</p>
-                                    <form>
-                                        <input type="text" required="" name="name" />
-                                        <button class="cart-btn-2" type="submit">Apply Coupon</button>
-                                    </form>
+
+                                    <span class="badge text-danger" id="coupon_error"></span>
+                                    <input type="text" id="coupon_input"/>
+                                    <button id="apply_coupon_btn" class="cart-btn-2" type="submit">Apply Coupon</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 mt-md-30px">
+
                             <div class="grand-totall">
                                 <div class="title-wrap">
                                     <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
                                 </div>
                                 <h5>Total Product Amount: <span id="total_amount">{{$total_amount}}</span></h5>
-                                <h5>(-) Coupon Discount <span>0</span></h5>
+                                <h5>(-) Coupon Discount <span id="discount_amount">0</span></h5>
                                 <h5>(+)Shipping Amount <span id="shipping_charge">0</span></h5>
 
                                 <h4 class="grand-totall-title">Grand Total <span id="grand_total">0</span></h4>
                                 @if ($order_button)
-                                <a href="checkout.html">Proceed to Checkout</a>
+                                <div class="discount-code-wrapper p-0">
+                                    <div class="discount-code">
+                                        <button id="checkout_btn" class="cart-btn-2 d-none" >Proceed to Checkout</button>
+                                    </div>
+                                </div>
 
                                 @else
                                     <div class="alert alert-danger">
@@ -229,6 +234,7 @@
                         $('#city_dropdown').html(data);
                     }
                 })
+                $('#checkout_btn').addClass('d-none');
             });
 
             $('#city_dropdown').change(function(){
@@ -236,6 +242,71 @@
                 var total_amount = $('#total_amount').html();
                 var shipping_charge = $('#shipping_charge').html();
                 $('#grand_total').html(parseInt(total_amount) + parseInt(shipping_charge))
+                $('#checkout_btn').removeClass('d-none');
+                var grand_total = parseInt($('#total_amount').html()) - parseInt($('#discount_amount').html()) +  parseInt($('#shipping_charge').html());
+                        $('#grand_total').html(grand_total);
+            })
+            $('#apply_coupon_btn').click(function(){
+                var coupon_name = $('#coupon_input').val();
+                var total_amount = parseInt($('#total_amount').html());
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    url:'/check/cuppon',
+                    data:{coupon_name:coupon_name, total_amount:total_amount},
+                    success: function(data){
+
+                        if (data.error) {
+                            $('#coupon_error').html(data.error);
+                            $('#coupon_input').val("");
+                            $('#discount_amount').html(" ");
+                            var grand_total = parseInt($('#total_amount').html()) +  parseInt($('#shipping_charge').html());
+                            $('#grand_total').html(grand_total);
+                        } else {
+
+                            $('#discount_amount').html(data);
+                            // alert(parseInt($('#total_amount').html()));
+                            // alert(parseInt($('#discount_amount').html()));
+                            // alert(parseInt($('#shipping_charge').html()));
+                            var grand_total = parseInt($('#total_amount').html()) - parseInt($('#discount_amount').html()) +  parseInt($('#shipping_charge').html());
+                            $('#grand_total').html(grand_total);
+                            $('#coupon_error').html(" ");
+                        }
+                        if(!coupon_name){
+                            $('#discount_amount').html(" ");
+                            var grand_total = parseInt($('#total_amount').html()) +  parseInt($('#shipping_charge').html());
+                            $('#grand_total').html(grand_total);
+                        }
+                    }
+                })
+            })
+
+            $('#checkout_btn').click(function(){
+                var total_amount = $('#total_amount').html();
+                var discount_amount = $('#discount_amount').html();
+                var shipping_charge = $('#shipping_charge').html();
+                var grand_total = $('#grand_total').html();
+                var country_id = $('#country_dropdown').val();
+                var city_name = $('#city_dropdown').find(":selected").text();
+                var coupon_name = $('#coupon_input').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    url:'/checkout/redirect',
+                    data:{total_amount:total_amount, discount_amount:discount_amount, shipping_charge:shipping_charge, grand_total:grand_total, country_id:country_id, city_name:city_name, coupon_name:coupon_name},
+                    success: function(data){
+                        window.location.href = 'checkout';
+                    }
+                })
+
             })
         })
 
